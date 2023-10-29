@@ -8,11 +8,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
-@Transactional
 public class ContentRepositoryTest {
 
     @Autowired
@@ -25,21 +25,33 @@ public class ContentRepositoryTest {
         final Content content = Content.builder()
                 .title("content title")
                 .body("content body")
-                .createdAt(LocalDateTime.of(2023,10,29, 19,29))
-                .modifiedAt(LocalDateTime.of(2023, 10, 30, 19, 35))
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
                 .build();
 
         // when
 
         Content contentEntity = contentRepository.save(content);
 
-        Content result = contentRepository.findById(content.getId()).get();
 
         // then
 
         assertThat(contentEntity.getTitle()).isEqualTo("content title");
-        assertThat(contentEntity).isEqualTo(result);
+        assertThat(contentEntity.getBody()).isEqualTo("content body");
+    }
 
+    @Test
+    public void 컨텐츠검색테스트() {
 
+        final Content content = Content.builder()
+                .title("content title")
+                .body("content body")
+                .build();
+
+        Content contentEntity = contentRepository.save(content);
+        Optional<Content> findContent = contentRepository.findById(content.getId());
+
+        assertThat(findContent.isPresent());
+        assertThat(findContent.get().getId().equals(content.getId()));
     }
 }

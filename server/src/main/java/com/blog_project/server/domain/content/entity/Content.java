@@ -27,6 +27,4 @@ public class Content {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-
-
 }
