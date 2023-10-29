@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${local_url}
+    username: ${local_username}
+    password: ${local_password}
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core: TRACE
