@@ -1,13 +1,13 @@
 package com.blog_project.server.content.repositoryTest;
 
+import com.blog_project.server.domain.content.entity.Content;
+import com.blog_project.server.domain.content.repository.ContentRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -34,22 +34,12 @@ public class ContentRepositoryTest {
                 .build();
         // when
 
-        final Content saveContent = contentRepository.save(content);
+        contentRepository.save(content);
+        final Content findContent = contentRepository.findByTitle(content.getTitle());
 
         // then
 
-        assertThat(saveContent.get)
-
-    }
-
-
-    @Repository
-    private interface ContentRepository extends JpaRepository<Content, Long> {
-
-    }
-
-    @Getter
-    public class Content {
-
+        assertThat(findContent.getTitle()).isEqualTo("content test title");
+        assertThat(findContent.getBody()).isEqualTo("content test body");
     }
 }
