@@ -12,15 +12,15 @@ public class MemberDto {
 
     private Long memberId;
     private String email;
-    private String password;
     private LocalDateTime createdAt;
+
+
 
     public static MemberDto from(Member entity) {
 
         return new MemberDto(
                 entity.getMemberId(),
                 entity.getEmail(),
-                entity.getPassword(),
                 entity.getCreatedAt()
         );
     }
