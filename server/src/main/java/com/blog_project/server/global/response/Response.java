@@ -19,4 +19,9 @@ public class Response<T> {
 
         return new Response<>("SUCCESS", result);
     }
+
+    public static <T> Response<Void> error(String errorCode) {
+
+        return new Response<>(errorCode, null);
+    }
 }
