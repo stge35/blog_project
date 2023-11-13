@@ -1,6 +1,7 @@
 package com.blog_project.server.domain.content.entity;
 
 
+import com.blog_project.server.domain.comment.entity.Comment;
 import com.blog_project.server.domain.member.entity.Member;
 import com.blog_project.server.global.audit.AuditingFields;
 import lombok.Getter;
@@ -8,8 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -24,6 +26,9 @@ public class Content extends AuditingFields {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
 
     public static Content of(String title, String body, Member member) {
         Content content = new Content();
