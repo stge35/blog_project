@@ -36,7 +36,7 @@ public class Member extends AuditingFields {
     @OneToMany
     private List<Content> contents = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
 

@@ -27,7 +27,7 @@ public class Content extends AuditingFields {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany
+    @OneToMany(mappedBy = "content", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
     public static Content of(String title, String body, Member member) {
