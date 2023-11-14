@@ -1,6 +1,7 @@
 package com.blog_project.server.domain.content.entity;
 
 
+import com.blog_project.server.domain.category.entity.Category;
 import com.blog_project.server.domain.comment.entity.Comment;
 import com.blog_project.server.domain.member.entity.Member;
 import com.blog_project.server.global.audit.AuditingFields;
@@ -26,6 +27,10 @@ public class Content extends AuditingFields {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
