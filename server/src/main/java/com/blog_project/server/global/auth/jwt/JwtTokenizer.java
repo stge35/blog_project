@@ -34,7 +34,7 @@ public class JwtTokenizer {
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
 
-    public String encodeBase64Secretkey(String secretKey) {
+    public String encodeBase64SecretKey(String secretKey) {
 
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
@@ -71,10 +71,12 @@ public class JwtTokenizer {
 
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
-        return Jwts.parserBuilder()
+        Jws<Claims> claims =  Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(jws);
+
+        return claims;
     }
 
     public void verifySignature(String jws, String base64EncodedSecretKey) {
